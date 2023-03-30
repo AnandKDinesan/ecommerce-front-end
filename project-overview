@@ -1,0 +1,7 @@
+e-commerce web site
+
+front end:using angular
+
+1.create project-ng new project-name
+2.run angular project - ng serve
+3.add bootstrap ,font awsome, google fonts in index.html

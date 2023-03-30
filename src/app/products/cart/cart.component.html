@@ -1,0 +1,157 @@
+<!-- empty cart -->
+<div *ngIf="cartItems.length==0" class="container mt-5">
+    <div class="row mt-5 p-3">
+        <div class="col text-center mt-5">
+            <!-- empty wishlist image -->
+            <img  style="height: 300px;" src="https://gifimage.net/wp-content/uploads/2017/11/einkaufswagen-gif-11.gif" alt="empty cart">
+            <h3 class="">Your cart is empty!!</h3>
+            <button routerLink="" class="btn btn-primary">Shop More</button>
+        </div>
+    </div>
+    
+</div>
+<!-- cart -->
+<div *ngIf="cartItems.length!=0" class="container mb-5 mt-5 ">
+    <div class="row">
+        <div class="col-lg-8 border p-3 mt-5">
+            <!-- cart table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of cartItems; let i=index">
+                        <th>{{i+1}}</th>
+                        <th>
+                            <img width="50px" [src]="product.image" alt="ProductImage">
+                        </th>
+                        <th>
+                            <input type="num" class="form-control" value="1" style="max-width:  3rem">
+                        </th>
+                        <th>$ {{product.price}}</th>
+                        <th>
+                            <a (click)="removeItem(product)" class="text-danger"><i class="fa-solid fa-trash"></i></a></th>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="float: right;">
+                <button (click)="emptyCart()"  style="float: left;" class="btn btn-danger ms-5">Empty Cart</button>
+                <a routerLink="" style="float: right;" class="btn btn-success ms-5">Shop More</a>
+            </div>
+
+        </div>
+        <div class="col-lg-1"></div>
+        
+        <div class="col-lg-3 rounded p-3 mt-5">
+            <p>Total: <span class="text-danger">{{grantTotal}}</span></p>
+            <p>Discount: <span>{{discount}}</span></p>
+            <h4>Grand Total: <b class="text-primary">{{discountTotal}}</b></h4>
+            <hr>
+            
+        <div class="mt-3">
+            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-decoration: none; float: left;" class="text-primary"><i class="fa-solid fa-tags"></i> Offers</a>
+            <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="float: right;" class="btn btn-success">Check Out</button>
+        </div>  
+        </div>
+
+    </div>
+</div>
+
+<!-- offer modal -->
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Offers</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-primary">
+            <div *ngIf="grantTotal>0 && grantTotal<10" class="d-flext align-items-center">
+                <h5>All users can apply</h5>
+                <img (click)="discount3percent()" data-bs-dismiss="modal" class="me-auto" width="100px" src="https://th.bing.com/th/id/R.150cd775f38a7ba1615c469d61e83a53?rik=LGzlcwDiOMSsqw&riu=http%3a%2f%2fwww.regionalsupplyblog.com%2fwp-content%2fuploads%2f2014%2f02%2fpromo-20130306-185440.png&ehk=KyQj4MOd2iNUEXwb12ZmYBIX5lRD2fpNQN%2fEfJr8JnY%3d&risl=&pid=ImgRaw&r=0" alt="">
+            </div>
+         
+            <div *ngIf="grantTotal>=10 && grantTotal<100" class="d-flext align-items-center">
+                <h5>All users can apply</h5>
+                <img (click)="discount10percent()" data-bs-dismiss="modal" class="me-auto" width="100px" src="https://th.bing.com/th/id/R.9ee5422eb0ae676c7394a2a758d04168?rik=4%2fF2kc%2fdMBIMhw&riu=http%3a%2f%2fsg-static-cdn.sgsr.us%2fdata%2fCouponCode10_OFF2016__56841dce8a178.png%3fv122&ehk=LovLSYm7yUsAY13V2f9t9ExSHc0O1umB2hGUl0X4T0M%3d&risl=&pid=ImgRaw&r=0" alt="">
+            </div>
+
+            <div *ngIf="grantTotal>=100" class="d-flext align-items-center">
+                <h5>Special offers</h5>
+                <img (click)="discount15percent()" data-bs-dismiss="modal" class="me-auto" width="100px" src="https://th.bing.com/th/id/R.150cd775f38a7ba1615c469d61e83a53?rik=LGzlcwDiOMSsqw&riu=http%3a%2f%2fwww.regionalsupplyblog.com%2fwp-content%2fuploads%2f2014%2f02%2fpromo-20130306-185440.png&ehk=KyQj4MOd2iNUEXwb12ZmYBIX5lRD2fpNQN%2fEfJr8JnY%3d&risl=&pid=ImgRaw&r=0" alt="">
+            </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- payment -->
+  <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Payment</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <form action="">
+              <div>
+                <input type="text" class="form-control" placeholder="Name">
+              </div>
+              <div class="mt-2">
+                <input type="text" class="form-control" placeholder="Phone Number">
+              </div>
+              <div class="mt-2">
+                <input type="email" class="form-control" placeholder="Email Id">
+              </div>
+              <div class="mt-2">
+                <input type="textarea " class="form-control" placeholder="Address">
+              </div>
+              <div>
+                <h3>Payment Method</h3>
+                <hr>
+
+              </div>
+              <div class="mt-2">
+                <input type="radio">
+                <label for=""> Cash on delivery</label>
+              </div>
+              <div class="mt-2">
+                <input type="radio">
+                <label for=""> UPI</label>
+              </div>
+              <div class="mt-2">
+                <input type="radio">
+                <label for=""> Card</label>
+              </div>
+              
+            </form>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button (click)="order()" type="button" class="btn btn-primary">Place order</button>
+          
+        </div>
+        <span class=" ms-2 fw-bolder text-success fs-3">{{checkoutMsg}}</span>
+      </div>
+    </div>
+  </div>
